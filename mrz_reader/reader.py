@@ -152,29 +152,42 @@ class MRZReader:
     def recognize_text(self, image, preprocess_config):
         """
         Recognizes text from the preprocessed image using OCR.
-
         Parameters:
         -----------
         image : str or numpy.ndarray
             Path to the image file or an image array.
-        preprocess_config : dict
+         preprocess_config : dict
             Configuration dictionary for preprocessing steps.
-
         Returns:
         --------
         list
-            A list of tuples containing the recognized text and bounding box information.
+        A list of tuples containing the recognized text and bounding box information.
         """
+        import numpy as np
+
         if isinstance(image, str):
             img = cv2.imread(image, cv2.IMREAD_COLOR)
         else:
-            img = image
+             img = image
 
         # Preprocessing steps
         if preprocess_config.get("do_preprocess", False):
-            img = self._preprocess_image(img, preprocess_config)
+           img = self._preprocess_image(img, preprocess_config)
+
+        # Additional validation and debug prints
+        if img is None:
+            print("Error: Image to OCR is None! Skipping OCR for this input.")
+            return []
+        if not isinstance(img, (np.ndarray, str, bytes)):
+            print(f"Error: img is not a valid type for EasyOCR: {type(img)}. Skipping OCR.")
+            return []
+
+        # If you want to log shapes as well:
+        if isinstance(img, np.ndarray):
+            print("Debug: img shape sent to OCR:", img.shape)
 
         return self.ocr_reader.readtext(img)
+
 
     def _preprocess_image(self, img, preprocess_config):
         """
