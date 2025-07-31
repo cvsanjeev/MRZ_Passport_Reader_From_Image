@@ -184,6 +184,11 @@ class FaceDetection:
             if confidence > confidence_input:
                 box = detections[0, 0, i, 3:7] * np.array([w, h, w, h])
                 (startX, startY, endX, endY) = box.astype("int")
+                margin = 45  # pixels
+                startX = max(0, startX - margin)
+                startY = max(0, startY - margin)
+                endX = min(w, endX + margin)
+                endY = min(h, endY + margin)
                 roi = img[startY:endY, startX:endX].copy()
                 return roi, confidence
         return None, None
