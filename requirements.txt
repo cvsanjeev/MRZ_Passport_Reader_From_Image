@@ -1,3 +1,7 @@
+fastapi
+uvicorn
+python-multipart
+numpy
 opencv_python_headless>=4.5.3.56
 scipy>=1.5.2
 imutils>=0.5.4
