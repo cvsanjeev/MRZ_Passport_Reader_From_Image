@@ -9,7 +9,7 @@ This project is an implementation of a Machine-Readable Zone (MRZ) reader from i
 - **OCR with EasyOCR**: Extracts text from the segmented MRZ region using EasyOCR.
 - **Preprocessing**: Includes optional preprocessing steps such as skew correction, shadow removal, and background clearing to improve OCR accuracy.
 
-## Installation s
+## Installation
 
 ### Prerequisites
 
